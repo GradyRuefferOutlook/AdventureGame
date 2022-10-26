@@ -86,5 +86,11 @@
   <ItemGroup>
     <None Include="Resources\stone-castle-wall-background-brick-medieval-vector-texture-palace-interior-illustration-marble-column-seamless-vintage-room-224315124.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gggggggg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Premium_seafood_taste_of_Japan-removebg-preview.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

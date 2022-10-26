@@ -14,15 +14,15 @@ namespace AdventureGame
     {
         public struct Item
         {
-           public String itemName;
-           public bool have;
+            public String itemName;
+            public bool have;
         }
 
         Item[] items = new Item[26];
 
         struct Scene
         {
-
+           // int sceneNumber
         }
 
         public Form1()
@@ -61,6 +61,36 @@ namespace AdventureGame
                 items[i].have = false;
             }
 
+            textOutput.BackColor = Color.FromArgb(200, textOutput.BackColor);
+
+            uInput.Parent = uInputBack;
+            uInput.Location = new Point(0, 0);
+            uInputBack.BackColor = Color.FromArgb(200, uInputBack.BackColor);
         }
+
+        private void uInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if (e. == Key.Return)
+            //{
+            //    textBlock1.Text = "You Entered: " + textBox1.Text;
+            //}
+        }
+
+        private void uInput_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.Text = "You Entered: " + uInput.Text;
+                uInput.Text = "";
+            }
+        }
+
+        //private void uInput_KeyUp(object sender, KeyEvene.tArgs e)
+        //{
+        //    //if (e.KeyCode == Keys.Enter)
+        //    //{
+        //    //    textBlock1.Text = "You Entered: " + textBox1.Text;
+        //    //}
+        //}
     }
 }

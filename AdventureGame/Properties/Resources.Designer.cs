@@ -73,10 +73,19 @@ namespace AdventureGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap stone_castle_wall_background_brick_medieval_vector_texture_palace_interior_illustration_marble_column_seamless_vintage_room_224315124 {
+        internal static System.Drawing.Bitmap CastleBackdrop {
             get {
-                object obj = ResourceManager.GetObject("stone_castle_wall_background_brick_medieval_vector_texture_palace_interior_illust" +
-                        "ration_marble_column_seamless_vintage_room_224315124", resourceCulture);
+                object obj = ResourceManager.GetObject("CastleBackdrop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Medieval_Arrow {
+            get {
+                object obj = ResourceManager.GetObject("Medieval Arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
