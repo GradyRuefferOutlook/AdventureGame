@@ -45,7 +45,6 @@
             this.uInput.Name = "uInput";
             this.uInput.Size = new System.Drawing.Size(1312, 44);
             this.uInput.TabIndex = 0;
-            this.uInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.uInput_KeyPress);
             this.uInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.uInput_KeyUp);
             // 
             // pictureBox1
@@ -68,7 +67,6 @@
             this.textOutput.Name = "textOutput";
             this.textOutput.Size = new System.Drawing.Size(710, 660);
             this.textOutput.TabIndex = 2;
-            this.textOutput.Text = "label1";
             // 
             // uInputBack
             // 
