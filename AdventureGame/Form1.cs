@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -585,10 +586,16 @@ namespace AdventureGame
             {
                 textOutput.Text += "\nYou Entered: " + uInput.Text;
                 uInput.Text = "";
+                int chance = rnd.Next(0, 101);
                 if (uInput.Text.ToLower().Contains("use"))
                 {
-
+                    if (uInput.Text.ToLower().Contains("evil rock") && items[0].have == true)
+                    {
+                        //String response = page.itemCheck(uInput.Text, chance);
+                        //textOutput.Text += $"\n{response}";
+                    }
                 }
+
                 else if (uInput.Text.ToLower().Contains("use"))
                 {
 
