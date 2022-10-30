@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,14 @@ namespace AdventureGame
             public String itemName;
             public bool have;
         }
+
+        int currentPage = 0;
+
+        int timesPlayed = 0;
+
+        int pagesScrolled = 0;
+
+        bool inVoid = false;
 
         Item[] items = new Item[26];
 
@@ -59,7 +68,7 @@ namespace AdventureGame
             int crownOfThornesChance;
             String pandorasBoxMessage;
             String pandorasBoxMessageBad;
-            int pandorasBoxkChance;
+            int pandorasBoxChance;
             String decapitatedHeadMessage;
             String decapitatedHeadMessageBad;
             int decapitatedHeadChance;
@@ -89,7 +98,7 @@ namespace AdventureGame
             int chainChance;
             String hookMessage;
             String hookMessageBad;
-            int hookkChance;
+            int hookChance;
             String metalicHandHeldItemMessage;
             String metalicHandHeldItemMessageBad;
             int metalicHandHeldItemChance;
@@ -101,9 +110,9 @@ namespace AdventureGame
             int poisonFangChance;
             String torchMessage;
             String torchMessageBad;
-            int torchRockChance;
-            
-            //Check the input and return the message
+            int torchChance;
+
+            //Check the input and return the item message
             public String itemCheck(String inputText, int chance)
             {
                 if (inputText.ToLower().Contains("evil rock"))
@@ -150,165 +159,377 @@ namespace AdventureGame
                         return stickMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("sword"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= swordChance)
                     {
-                        return bucketMessage;
+                        return swordMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return swordMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("axe"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= axeChance)
                     {
-                        return bucketMessage;
+                        return axeMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return axeMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("totem"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= totemChance)
                     {
-                        return bucketMessage;
+                        return totemMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return totemMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("voodoo doll"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= voodooDollChance)
                     {
-                        return bucketMessage;
+                        return voodooDollMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return voodooDollMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("broomstick"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= broomstickChance)
                     {
-                        return bucketMessage;
+                        return broomstickMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return broomstickMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("coconut"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= coconutChance)
                     {
-                        return bucketMessage;
+                        return coconutMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return coconutMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("crown of thornes"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= crownOfThornesChance)
                     {
-                        return bucketMessage;
+                        return crownOfThornesMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return crownOfThornesMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("pandoras box") || inputText.ToLower().Contains("pandora's box"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= pandorasBoxChance)
                     {
-                        return bucketMessage;
+                        return pandorasBoxMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return pandorasBoxMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("decapitated head") || inputText.ToLower().Contains("head"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= decapitatedHeadChance)
                     {
-                        return bucketMessage;
+                        return decapitatedHeadMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return decapitatedHeadMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("the one ring") || inputText.ToLower().Contains("ring"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= theOneRingChance)
                     {
-                        return bucketMessage;
+                        return theOneRingMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return theOneRingMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("plane"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= planeChance)
                     {
-                        return bucketMessage;
+                        return planeMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return planeMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("power glove"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= powerGloveChance)
                     {
-                        return bucketMessage;
+                        return powerGloveMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return powerGloveMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("companion cube"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= companionCubeChance)
                     {
-                        return bucketMessage;
+                        return companionCubeMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return companionCubeMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("evil rock"))
+                else if (inputText.ToLower().Contains("pocket watch"))
                 {
-                    if (chance <= bucketChance)
+                    if (chance <= pocketWatchChance)
                     {
-                        return bucketMessage;
+                        return pocketWatchMessage;
                     }
                     else
                     {
-                        return bucketMessageBad;
+                        return pocketWatchMessageBad;
                     }
                 }
-
+                else if (inputText.ToLower().Contains("plank"))
+                {
+                    if (chance <= plankChance)
+                    {
+                        return plankMessage;
+                    }
+                    else
+                    {
+                        return plankMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("cloth"))
+                {
+                    if (chance <= clothChance)
+                    {
+                        return clothMessage;
+                    }
+                    else
+                    {
+                        return clothMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("chain"))
+                {
+                    if (chance <= chainChance)
+                    {
+                        return chainMessage;
+                    }
+                    else
+                    {
+                        return chainMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("hook"))
+                {
+                    if (chance <= hookChance)
+                    {
+                        return hookMessage;
+                    }
+                    else
+                    {
+                        return hookMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("metallic handheld item"))
+                {
+                    if (chance <= metalicHandHeldItemChance)
+                    {
+                        return metalicHandHeldItemMessage;
+                    }
+                    else
+                    {
+                        return metalicHandHeldItemMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("slingshot"))
+                {
+                    if (chance <= slingshotChance)
+                    {
+                        return slingshotMessage;
+                    }
+                    else
+                    {
+                        return slingshotMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("poison fang"))
+                {
+                    if (chance <= poisonFangChance)
+                    {
+                        return poisonFangMessage;
+                    }
+                    else
+                    {
+                        return poisonFangMessageBad;
+                    }
+                }
+                else if (inputText.ToLower().Contains("torch"))
+                {
+                    if (chance <= torchChance)
+                    {
+                        return torchMessage;
+                    }
+                    else
+                    {
+                        return torchMessageBad;
+                    }
+                }
 
                 else
                 {
-                    return "dummy";
+                    return "You do not have this Item";
+                }
+            }
+
+
+            String examineText;
+            String obtainText;
+            String lookText;
+            String sayText;
+            String unlockText;
+            String expectedUnlockItem;
+            String traverseText;
+            String failedTraverseText;
+            public String actionCheck(String inputText, String unlockItem, int traverseChance, int chance)
+            {
+                if (inputText.ToLower().Contains("examine"))
+                {
+                    return examineText;
+                }
+
+                else if (inputText.ToLower().Contains("pick up") || inputText.ToLower().Contains("grab") || inputText.ToLower().Contains("take"))
+                {
+                    return obtainText;
+                }
+
+                else if (inputText.ToLower().Contains("look"))
+                {
+                    return lookText;
+                }
+
+                else if (inputText.ToLower().Contains("say"))
+                {
+                    return sayText;
+                }
+
+                else if (inputText.ToLower().Contains("unlock"))
+                {
+                    if (unlockItem == expectedUnlockItem)
+                    {
+                        return unlockText;
+                    }
+
+                    else if (unlockItem == "")
+                    {
+                        return "With What?";
+                    }
+
+                    else
+                    {
+                        return "It Does Not Work";
+                    }
+                }
+
+                else if (inputText.ToLower().Contains("traverse"))
+                {
+                    if (chance > traverseChance)
+                    {
+                        return traverseText;
+                    }
+                    else
+                    {
+                        return failedTraverseText;
+                    }
+                }
+
+                else
+                {
+                    return "You Cannot Do That";
+                }
+            }
+
+            public String moveCheck(String inputText, int chance, int pagesScrolled, int specialEventChance, bool inVoid)
+            {
+                if (pagesScrolled > 20 && chance >= (100 - (10 * (pagesScrolled - 20))))
+                {
+                    return "Load Kingdom Page 1";
+                }
+                else if (chance >= 100 - specialEventChance)
+                {
+                    return "Load Extra Page";
+                }
+                else if (inVoid == false)
+                {
+                    return "Load Basic Page";
+                }
+                else
+                {
+                    return "You have nowhere to go";
+                }
+            }
+
+            public String extraCheck(String inputText, int chance, int currentPage)
+            {
+                if (inputText.ToLower().Contains("dance"))
+                {
+                    if (currentPage == 53)
+                    {
+                        return "You can't cut loose! Footloose! And are shot in your sunday shoes!\nPlay Again?";
+                    }
+                    else if (currentPage == 30)
+                    {
+                        return "The Obelisk responds by revealing a powerful glove";
+                    }
+                    else
+                    {
+                        return "You bust it down..... For absolutely no reason. \nThen again, who needs one?";
+                    }
+                }
+                else if (inputText.ToLower().Contains("suicide"))
+                {
+                    return "You took that way out. \nPlay Again?";
+                }
+                else if (inputText.ToLower().Contains("up up down down left right left right b a start"))
+                {
+                    if (currentPage == 53)
+                    {
+                        return "And they all lived happily ever after. Yay..... \nPlay Again?";
+                    }
+                    else
+                    {
+                        return "This is not a game. This is Life.";
+                    }
+                }
+                else
+                {
+                    return "Ivalid Input. Please Use Valid Prefixes.";
                 }
             }
         }
@@ -364,6 +585,14 @@ namespace AdventureGame
             {
                 textOutput.Text += "\nYou Entered: " + uInput.Text;
                 uInput.Text = "";
+                if (uInput.Text.ToLower().Contains("use"))
+                {
+
+                }
+                else if (uInput.Text.ToLower().Contains("use"))
+                {
+
+                }
             }
         }
     }
