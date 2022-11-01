@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace AdventureGame
 {
+    //Note:
+    //Unfortunately the number of scenes has been cut from 20 to 10 because, well, it takes a long time to code a single scene
+    //The intro scenes have been cut
     public partial class Form1 : Form
     {
         public struct Item
@@ -20,20 +23,31 @@ namespace AdventureGame
             public bool have;
         }
 
-        int currentPage = 0;
+        //Track current page
+        String currentPage = "Start";
 
+        //Track times played, because of reset, never used
         int timesPlayed = 0;
 
+        //Track the pages traversed 
         int pagesScrolled = 0;
-
-        bool inVoid = false;
 
         Item[] items = new Item[26];
 
         Random rnd = new Random();
 
-        struct Scene
+        public struct Scene
         {
+            //Opening text
+            String opener;
+
+            //Check whether the scene was used
+            bool used;
+
+            //Check whether you have participated in the event and whether it is safe to move
+            bool eventDone;
+            bool safe;
+
             String evilRockMessage;
             String evilRockMessageBad;
             int evilRockChance;
@@ -409,7 +423,6 @@ namespace AdventureGame
                 }
             }
 
-
             String examineText;
             String obtainText;
             String lookText;
@@ -418,7 +431,9 @@ namespace AdventureGame
             String expectedUnlockItem;
             String traverseText;
             String failedTraverseText;
-            public String actionCheck(String inputText, String unlockItem, int traverseChance, int chance)
+            int traverseChance;
+
+            public String actionCheck(String inputText, String unlockItem, int chance)
             {
                 if (inputText.ToLower().Contains("examine"))
                 {
@@ -442,7 +457,7 @@ namespace AdventureGame
 
                 else if (inputText.ToLower().Contains("unlock"))
                 {
-                    if (unlockItem == expectedUnlockItem)
+                    if (unlockItem == expectedUnlockItem || expectedUnlockItem == "")
                     {
                         return unlockText;
                     }
@@ -476,35 +491,38 @@ namespace AdventureGame
                 }
             }
 
-            public String moveCheck(String inputText, int chance, int pagesScrolled, int specialEventChance, bool inVoid)
+            public String moveCheck(String inputText, int chance, int pagesScrolled, int specialEventChance)
             {
-                if (pagesScrolled > 20 && chance >= (100 - (10 * (pagesScrolled - 20))))
+                if (eventDone == true)
                 {
-                    return "Load Kingdom Page 1";
-                }
-                else if (chance >= 100 - specialEventChance)
-                {
-                    return "Load Extra Page";
-                }
-                else if (inVoid == false)
-                {
-                    return "Load Basic Page";
+                    if (pagesScrolled >= 10 && chance >= (100 - (10 * (pagesScrolled - 9))))
+                    {
+                        return "Load Kingdom Page 1";
+                    }
+                    else if (chance >= 100 - specialEventChance)
+                    {
+                        return "Load Extra Page";
+                    }
+                    else
+                    {
+                        return "You have nowhere to go";
+                    }
                 }
                 else
                 {
-                    return "You have nowhere to go";
+                    return "You feel like your job here isn't done";
                 }
             }
 
-            public String extraCheck(String inputText, int chance, int currentPage)
+            public String extraCheck(String inputText, int chance, String currentPage)
             {
                 if (inputText.ToLower().Contains("dance"))
                 {
-                    if (currentPage == 53)
+                    if (currentPage == "endingChoose")
                     {
                         return "You can't cut loose! Footloose! And are shot in your sunday shoes!\nPlay Again?";
                     }
-                    else if (currentPage == 30)
+                    else if (currentPage == "scenesItem[15]")
                     {
                         return "The Obelisk responds by revealing a powerful glove";
                     }
@@ -533,13 +551,220 @@ namespace AdventureGame
                     return "Ivalid Input. Please Use Valid Prefixes.";
                 }
             }
+
+            public void sceneCreate(
+            String evilRockMessageI,
+            String evilRockMessageBadI,
+            int evilRockChanceI,
+            String bucketMessageI,
+            String bucketMessageBadI,
+            int bucketChanceI,
+            String holyBucketMessageI,
+            String holyBucketMessageBadI,
+            int holyBucketChanceI,
+            String stickMessageI,
+            String stickMessageBadI,
+            int stickChanceI,
+            String swordMessageI,
+            String swordMessageBadI,
+            int swordChanceI,
+            String axeMessageI,
+            String axeMessageBadI,
+            int axeChanceI,
+            String totemMessageI,
+            String totemMessageBadI,
+            int totemChanceI,
+            String voodooDollMessageI,
+            String voodooDollMessageBadI,
+            int voodooDollChanceI,
+            String broomstickMessageI,
+            String broomstickMessageBadI,
+            int broomstickChanceI,
+            String coconutMessageI,
+            String coconutMessageBadI,
+            int coconutChanceI,
+            String crownOfThornesMessageI,
+            String crownOfThornesMessageBadI,
+            int crownOfThornesChanceI,
+            String pandorasBoxMessageI,
+            String pandorasBoxMessageBadI,
+            int pandorasBoxChanceI,
+            String decapitatedHeadMessageI,
+            String decapitatedHeadMessageBadI,
+            int decapitatedHeadChanceI,
+            String theOneRingMessageI,
+            String theOneRingMessageBadI,
+            int theOneRingChanceI,
+            String planeMessageI,
+            String planeMessageBadI,
+            int planeChanceI,
+            String powerGloveMessageI,
+            String powerGloveMessageBadI,
+            int powerGloveChanceI,
+            String companionCubeMessageI,
+            String companionCubeMessageBadI,
+            int companionCubeChanceI,
+            String pocketWatchMessageI,
+            String pocketWatchMessageBadI,
+            int pocketWatchChanceI,
+            String plankMessageI,
+            String plankMessageBadI,
+            int plankChanceI,
+            String clothMessageI,
+            String clothMessageBadI,
+            int clothChanceI,
+            String chainMessageI,
+            String chainMessageBadI,
+            int chainChanceI,
+            String hookMessageI,
+            String hookMessageBadI,
+            int hookChanceI,
+            String metalicHandHeldItemMessageI,
+            String metalicHandHeldItemMessageBadI,
+            int metalicHandHeldItemChanceI,
+            String slingshotMessageI,
+            String slingshotMessageBadI,
+            int slingshotChanceI,
+            String poisonFangMessageI,
+            String poisonFangMessageBadI,
+            int poisonFangChanceI,
+            String torchMessageI,
+            String torchMessageBadI,
+            int torchChanceI,
+            String examineTextI,
+            String obtainTextI,
+            String lookTextI,
+            String sayTextI,
+            String unlockTextI,
+            String expectedUnlockItemI,
+            String traverseTextI,
+            int traverseChanceI,
+            String failedTraverseTextI,
+            String openerI,
+            bool safeI
+            )
+            {
+                evilRockMessage = evilRockMessageI;
+                evilRockMessageBad = evilRockMessageBadI;
+                evilRockChance = evilRockChanceI;
+                bucketMessage = bucketMessageI;
+                bucketMessageBad = bucketMessageBadI;
+                bucketChance = bucketChanceI;
+                holyBucketMessage = holyBucketMessageI;
+                holyBucketMessageBad = holyBucketMessageBadI;
+                holyBucketChance = holyBucketChanceI;
+                stickMessage = stickMessageI;
+                stickMessageBad = stickMessageBadI;
+                stickChance = stickChanceI;
+                swordMessage = swordMessageI;
+                swordMessageBad = swordMessageBadI;
+                swordChance = swordChanceI;
+                axeMessage = axeMessageI;
+                axeMessageBad = axeMessageBadI;
+                axeChance = axeChanceI;
+                totemMessage = totemMessageI;
+                totemMessageBad = totemMessageBadI;
+                totemChance = totemChanceI;
+                voodooDollMessage = voodooDollMessageI;
+                voodooDollMessageBad = voodooDollMessageBadI;
+                voodooDollChance = voodooDollChanceI;
+                broomstickMessage = broomstickMessageI;
+                broomstickMessageBad = broomstickMessageBadI;
+                broomstickChance = broomstickChanceI;
+                coconutMessage = coconutMessageI;
+                coconutMessageBad = coconutMessageBadI;
+                coconutChance = coconutChanceI;
+                crownOfThornesMessage = crownOfThornesMessageI;
+                crownOfThornesMessageBad = crownOfThornesMessageBadI;
+                crownOfThornesChance = crownOfThornesChanceI;
+                pandorasBoxMessage = pandorasBoxMessageI;
+                pandorasBoxMessageBad = pandorasBoxMessageBadI;
+                pandorasBoxChance = pandorasBoxChanceI;
+                decapitatedHeadMessage = decapitatedHeadMessageI;
+                decapitatedHeadMessageBad = decapitatedHeadMessageBadI;
+                decapitatedHeadChance = decapitatedHeadChanceI;
+                theOneRingMessage = theOneRingMessageI;
+                theOneRingMessageBad = theOneRingMessageBadI;
+                theOneRingChance = theOneRingChanceI;
+                planeMessage = planeMessageI;
+                planeMessageBad = planeMessageBadI;
+                planeChance = planeChanceI;
+                powerGloveMessage = powerGloveMessageI;
+                powerGloveMessageBad = powerGloveMessageBadI;
+                powerGloveChance = powerGloveChanceI;
+                companionCubeMessage = companionCubeMessageI;
+                companionCubeMessageBad = companionCubeMessageBadI;
+                companionCubeChance = companionCubeChanceI;
+                pocketWatchMessage = pocketWatchMessageI;
+                pocketWatchMessageBad = pocketWatchMessageBadI;
+                pocketWatchChance = pocketWatchChanceI;
+                plankMessage = plankMessageI;
+                plankMessageBad = plankMessageBadI;
+                plankChance = plankChanceI;
+                clothMessage = clothMessageI;
+                clothMessageBad = clothMessageBadI;
+                clothChance = clothChanceI;
+                chainMessage = chainMessageI;
+                chainMessageBad = chainMessageBadI;
+                chainChance = chainChanceI;
+                hookMessage = hookMessageI;
+                hookMessageBad = hookMessageBadI;
+                hookChance = hookChanceI;
+                metalicHandHeldItemMessage = metalicHandHeldItemMessageI;
+                metalicHandHeldItemMessageBad = metalicHandHeldItemMessageBadI;
+                metalicHandHeldItemChance = metalicHandHeldItemChanceI;
+                slingshotMessage = slingshotMessageI;
+                slingshotMessageBad = slingshotMessageBadI;
+                slingshotChance = slingshotChanceI;
+                poisonFangMessage = poisonFangMessageI;
+                poisonFangMessageBad = poisonFangMessageBadI;
+                poisonFangChance = poisonFangChanceI;
+                torchMessage = torchMessageI;
+                torchMessageBad = torchMessageBadI;
+                torchChance = torchChanceI;
+                examineText = examineTextI;
+                obtainText = obtainTextI;
+                lookText = lookTextI;
+                sayText = sayTextI;
+                unlockText = unlockTextI;
+                expectedUnlockItem = expectedUnlockItemI;
+                traverseText = traverseTextI;
+                failedTraverseText = failedTraverseTextI;
+                traverseChance = traverseChanceI;
+                used = false;
+                eventDone = false;
+                safe = safeI;
+                opener = openerI;
+            }
+
+            public void eventConcluded()
+            {
+                eventDone = true;
+            }
+
+            public void sceneUsed()
+            {
+                used = true;
+            }
+
+            public void nowSafe()
+            {
+                safe = true;
+            }
         }
+
+        //Sets the regular scenes
+        Scene[] scenesReg = new Scene[10];
+
+        //Sets the item obtaining (or extra) scenes
+        Scene[] scenesItem = new Scene[26];
+
+        //Sets the ending scenes
+        Scene[] scenesEnding = new Scene[26];
 
         public Form1()
         {
             InitializeComponent();
-
-            Scene[] scenesReg = new Scene[20];
 
             items[0].itemName = "evil rock";
             items[1].itemName = "bucket";
@@ -572,6 +797,215 @@ namespace AdventureGame
             {
                 items[i].have = false;
             }
+            items[3].have = true;
+            items[23].have = true;
+            items[25].have = true;
+            items[18].have = true;
+            items[5].have = true;
+
+
+            Scene sceneholder = new Scene();
+            //Scene 1, Cart Scene
+            scenesReg[1].sceneCreate(
+              "You reconsider your actions", //evilRockMessageI
+              "You bash your head in", //evilRockMessageBadI
+              1, //evilRockChanceI
+              "You place the bucket on the cart \nThis feels right", //bucketMessageI
+              "", //bucketMessageBadI
+              100, //bucketChanceI
+              "You place the bucket on the cart \nYou feel brought to tears", //holyBucketMessageI
+              "", //holyBucketMessageBadI
+              100, //holyBucketChanceI
+              "You give up your stick", //stickMessageI
+              "Your stick breaks", //stickMessageBadI
+              50, //stickChanceI
+              "You lay down your arms", //swordMessageI
+              "",//swordMessageBadI
+              100,//swordChanceI
+              "You hand down your axe", //axeMessageI
+              "You smash the cart", //axeMessageBadI
+              50, //axeChanceI
+              "You curse the cart", //totemMessageI
+              "", //totemMessageBadI
+              100, //totemChanceI
+              "The doll floats to the cart \nYou feel relieved", //voodooDollMessageI
+              "", //voodooDollMessageBadI
+              100, //voodooDollChanceI
+              "It rejects the cart",//broomstickMessageI
+              "", //broomstickMessageBadI
+              100, //broomstickChanceI
+              "You hear distant horse steps... \nClopping? \nWho knows, but your coconut is carried off... \nBy two swallows?", //coconutMessageI
+              "", //coconutMessageBadI
+              100, //coconutChanceI
+              "That's stuck to your head", //crownOfThornesMessageI
+              "", //crownOfThornesMessageBadI
+              100, //crownOfThornesChanceI
+              "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
+              "",//pandorasBoxMessageBadI
+              100, //pandorasBoxChanceI
+              "You lay the head on the cart \nThe owner would be terrified", //decapitatedHeadMessageI
+              "", //decapitatedHeadMessageBadI
+              100, //decapitatedHeadChanceI
+              "The whispers tell you not to",//theOneRingMessageI
+              "", //theOneRingMessageBadI
+              100, //theOneRingChanceI
+              "The plane flies off with the cart in tow", //planeMessageI
+              "The plane crushes the cart \nHow did you carry that!?", //planeMessageBadI
+              50, //planeChanceI
+              "The cart glitches out of existence and so does the glove \nWhy?", //powerGloveMessageI
+              "", //powerGloveMessageBadI
+              100, //powerGloveChanceI
+              "You leave it on the cart \nYou feel empty inside without your companion cube", //companionCubeMessageI
+              "", //companionCubeMessageBadI
+              100, //companionCubeChanceI
+              "You leave your pocket watch for the owner \nYou feel happy", //pocketWatchMessageI
+              "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
+              50, //pocketWatchChanceI
+              "You replace an old board with your plank \n You feel good", //plankMessageI
+              "", //plankMessageBadI
+              100, //plankChanceI
+              "You wipe down the cart with the cloth \nIt falls apart", //clothMessageI
+              "", //clothMessageBadI
+              100, //clothChanceI
+              "You place the chain on the cart", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You place the hook on the cart", //hookMessageI
+              "You hook the cart", //hookMessageBadI
+              50, //hookChanceI
+              "You place the metallic handheld item on the cart", //metalicHandHeldItemMessageI
+              "The gun... I MEAN metallic handheld item fires \nIt ricochets and hits you \nYou are dead \nPlay Again", //metalicHandHeldItemMessageBadI
+              80, //metalicHandHeldItemChanceI
+              "Your prankster days are behind you... \nNOT! You keep your it on your person", //slingshotMessageI
+              "", //slingshotMessageBadI
+              100, //slingshotChanceI
+              "That's... Not Right", //poisonFangMessageI
+              "", //poisonFangMessageBadI
+              100, //poisonFangChanceI
+              "You place the torch on the cart \nRisky", //torchMessageI
+              "You light the cart on fire with the torch \nThe torch burns up", //torchMessageBadI
+              50, //torchChanceI
+              "It looks to be a cart \nPerhaps it once belonged to a merchant", //examineTextI
+              "You cannot take the cart", //obtainTextI
+              "You see a clear path around the cart \nMaybe you don't need to be giving", //lookTextI
+              "You do realize there's no one around?", //sayTextI
+              "You unlock a secret compartment in the cart \nYou find a strange box \nPandoras Box obtained", //unlockTextI
+              "", //expectedUnlockItemI
+              "You walk past the cart \nPerhaps you deserve what happened to you",//traverseTextI
+              100, //traverseChanceI
+              "", //failedTraverseTextI
+              "You run across an abandoned cart \nYou feel like leaving something behind", //openerI
+              true //safeI
+              );
+
+            //Scene 2, Broken Bridge
+            scenesReg[2].sceneCreate(
+              "You reconsider your actions", //evilRockMessageI
+              "You bash your head in", //evilRockMessageBadI
+              1, //evilRockChanceI
+              "That does nothing", //bucketMessageI
+              "", //bucketMessageBadI
+              100, //bucketChanceI
+              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "", //holyBucketMessageBadI
+              100, //holyBucketChanceI
+              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
+              "Your stick breaks", //stickMessageBadI
+              10, //stickChanceI
+              "A sword won't help you here", //swordMessageI
+              "",//swordMessageBadI
+              100,//swordChanceI
+              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "", //axeMessageBadI
+              100, //axeChanceI
+              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "", //totemMessageBadI
+              100, //totemChanceI
+              "Nothing Happens", //voodooDollMessageI
+              "", //voodooDollMessageBadI
+              100, //voodooDollChanceI
+              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "", //broomstickMessageBadI
+              100, //broomstickChanceI
+              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "", //coconutMessageBadI
+              100, //coconutChanceI
+              "That's stuck to your head", //crownOfThornesMessageI
+              "", //crownOfThornesMessageBadI
+              100, //crownOfThornesChanceI
+              "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
+              "",//pandorasBoxMessageBadI
+              100, //pandorasBoxChanceI
+              "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
+              "", //decapitatedHeadMessageBadI
+              100, //decapitatedHeadChanceI
+              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "", //theOneRingMessageBadI
+              100, //theOneRingChanceI
+              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
+              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
+              50, //planeChanceI
+              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "The glove disappears and you look weird for trying", //powerGloveMessageBadI
+              90, //powerGloveChanceI
+              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              "", //companionCubeMessageBadI
+              100, //companionCubeChanceI
+              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
+              90, //pocketWatchChanceI
+              "You fix the bridge with your board \n It is safe to cross", //plankMessageI
+              "", //plankMessageBadI
+              100, //plankChanceI
+              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
+              "", //clothMessageBadI
+              100, //clothChanceI
+              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
+              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
+              70, //chainChanceI
+              "You hook across the bridge gap \nYou are safely across", //hookMessageI
+              "Your hook ricochets and breaks", //hookMessageBadI
+              75, //hookChanceI
+              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
+              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
+              80, //metalicHandHeldItemChanceI
+              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
+              "", //slingshotMessageBadI
+              100, //slingshotChanceI
+              "That's... Not going to work", //poisonFangMessageI
+              "", //poisonFangMessageBadI
+              100, //poisonFangChanceI
+              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
+              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
+              50, //torchChanceI
+              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
+              "There's absolutely nothing salvagable", //obtainTextI
+              "The river extends far past your vision", //lookTextI
+              "You do realize there's no one around?", //sayTextI
+              "Unlock what?", //unlockTextI
+              "", //expectedUnlockItemI
+              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
+              5, //traverseChanceI
+              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
+              "A broken bridge blocks your path over a long river", //openerI
+              false //safeI
+              );
+
+            //Scene 3, Wolf
+
+            //Scene 4, Dragon
+
+            //Scene 5, Black Knight
+
+            //Scene 6, Deep Forest
+
+            //Scene 7, Wizard
+
+            //Scene 8, Village
+
+            //Scene 9, Mines
+
+            //Scene 10, Mountains
 
             textOutput.BackColor = Color.FromArgb(200, textOutput.BackColor);
 
