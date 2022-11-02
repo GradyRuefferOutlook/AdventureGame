@@ -4593,6 +4593,11 @@ namespace AdventureGame
                                     }
                                 }
 
+                                if (response.ToLower().Contains("again"))
+                                {
+                                    playAgain = true;
+                                }
+
                                 textOutput.Text += response;
                             }
                         }
