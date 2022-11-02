@@ -33,9 +33,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textOutput = new System.Windows.Forms.Label();
             this.uInputBack = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.medisiaImageView = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.medisiaImageView)).BeginInit();
             this.SuspendLayout();
             // 
             // uInput
@@ -44,7 +44,7 @@
             this.uInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uInput.ForeColor = System.Drawing.SystemColors.Window;
             this.uInput.Location = new System.Drawing.Point(88, 814);
-            this.uInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uInput.Margin = new System.Windows.Forms.Padding(4);
             this.uInput.Name = "uInput";
             this.uInput.Size = new System.Drawing.Size(1748, 46);
             this.uInput.TabIndex = 0;
@@ -58,7 +58,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Image = global::AdventureGame.Properties.Resources.Medieval_Arrow;
             this.pictureBox1.Location = new System.Drawing.Point(13, 814);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(67, 53);
             this.pictureBox1.TabIndex = 1;
@@ -86,13 +86,14 @@
             this.uInputBack.Size = new System.Drawing.Size(1749, 62);
             this.uInputBack.TabIndex = 3;
             // 
-            // pictureBox2
+            // medisiaImageView
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(-6, -2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(796, 692);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
+            this.medisiaImageView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.medisiaImageView.Location = new System.Drawing.Point(-6, -2);
+            this.medisiaImageView.Name = "medisiaImageView";
+            this.medisiaImageView.Size = new System.Drawing.Size(863, 613);
+            this.medisiaImageView.TabIndex = 4;
+            this.medisiaImageView.TabStop = false;
             // 
             // Form1
             // 
@@ -100,19 +101,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AdventureGame.Properties.Resources.CastleBackdrop;
             this.ClientSize = new System.Drawing.Size(1827, 863);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.medisiaImageView);
             this.Controls.Add(this.textOutput);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.uInput);
             this.Controls.Add(this.uInputBack);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Medisia";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.medisiaImageView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,7 +125,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label textOutput;
         private System.Windows.Forms.Label uInputBack;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox medisiaImageView;
     }
 }
 
