@@ -299,5 +299,11 @@
   <ItemGroup>
     <None Include="Resources\471743__juanfg__sweeping-broom.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AlwaysLook.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MedisiaTheme.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
