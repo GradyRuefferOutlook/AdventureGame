@@ -9,13 +9,16 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+using System.Threading;
 
 namespace AdventureGame
 {
-    //Note:
-    //Curently missing sound and images
-    //Unfortunately the number of scenes has been cut from 20 to 10 because, well, it takes a long time to code a single scene
-    //The intro scenes have been cut
+    /* Grady Rueffer
+     * 152446035
+     * Adventure Game
+     * 02/11/2022
+     */
     public partial class Form1 : Form
     {
         public struct Item
@@ -43,6 +46,8 @@ namespace AdventureGame
 
         Random rnd = new Random();
 
+        System.Media.SoundPlayer adventureTheme = new SoundPlayer(Properties.Resources.MedisiaTheme);
+
         public struct Scene
         {
             //Opening text
@@ -54,6 +59,9 @@ namespace AdventureGame
             //Check whether you have participated in the event and whether it is safe to move
             public bool eventDone;
             public bool safe;
+
+            //Image to display
+            public Image display;
 
             String evilRockMessage;
             String evilRockMessageBad;
@@ -137,289 +145,368 @@ namespace AdventureGame
             //Check the input and return the item message
             public String itemCheck(String inputText, int chance, bool zeroHave, bool oneHave, bool twoHave, bool threeHave, bool fourHave, bool fiveHave, bool sixHave, bool sevenHave, bool eightHave, bool nineHave, bool tenHave, bool elevenHave, bool twelveHave, bool thirteenHave, bool fourteenHave, bool fifteenHave, bool sixteenHave, bool seventeenHave, bool eighteenHave, bool nineteenHave, bool twentyHave, bool twentyoneHave, bool twentytwoHave, bool twentythreeHave, bool twentyfourHave, bool twentyfiveHave)
             {
+                System.Media.SoundPlayer itemSound;
                 if (inputText.ToLower().Contains("evil rock") && zeroHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.RockSound);
                     if (chance <= evilRockChance)
                     {
+                        itemSound.Play();
                         return evilRockMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return evilRockMessageBad;
                     }
                 }
-                else if (inputText.ToLower().Contains("bucket") && oneHave == true)
+                else if (inputText.ToLower().Contains("bucket") && oneHave == true && inputText.ToLower().Contains("holy") == false)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.BucketSound);
                     if (chance <= bucketChance)
                     {
+                        itemSound.Play();
                         return bucketMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return bucketMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("holy bucket") && twoHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.HolyBucketSound);
                     if (chance <= holyBucketChance)
                     {
+                        itemSound.Play();
                         return holyBucketMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return holyBucketMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("stick") && threeHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.StickSound);
                     if (chance <= stickChance)
                     {
+                        itemSound.Play();
                         return stickMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return stickMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("sword") && fourHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.SwordSound);
                     if (chance <= swordChance)
                     {
+                        itemSound.Play();
                         return swordMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return swordMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("axe") && fiveHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.AxeSound);
                     if (chance <= axeChance)
                     {
+                        itemSound.Play();
                         return axeMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return axeMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("totem") && sixHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.TotemSound);
                     if (chance <= totemChance)
                     {
+                        itemSound.Play();
                         return totemMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return totemMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("voodoo doll") && sevenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.VoodooDollSound);
                     if (chance <= voodooDollChance)
                     {
+                        itemSound.Play();
                         return voodooDollMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return voodooDollMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("broomstick") && eightHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.BroomstickSound);
                     if (chance <= broomstickChance)
                     {
+                        itemSound.Play();
                         return broomstickMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return broomstickMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("coconut") && nineHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.CoconutSound);
                     if (chance <= coconutChance)
                     {
+                        itemSound.Play();
                         return coconutMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return coconutMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("crown of thornes") && tenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.CrownOfThornesSound);
                     if (chance <= crownOfThornesChance)
                     {
+                        itemSound.Play();
                         return crownOfThornesMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return crownOfThornesMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("pandoras box") || inputText.ToLower().Contains("pandora's box") && elevenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.PandorasBoxSound);
                     if (chance <= pandorasBoxChance)
                     {
+                        itemSound.Play();
                         return pandorasBoxMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return pandorasBoxMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("decapitated head") || inputText.ToLower().Contains("head") && twelveHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.HeadSound);
                     if (chance <= decapitatedHeadChance)
                     {
+                        itemSound.Play();
                         return decapitatedHeadMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return decapitatedHeadMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("the one ring") || inputText.ToLower().Contains("ring") && thirteenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.TheOneRingSound);
                     if (chance <= theOneRingChance)
                     {
+                        itemSound.Play();
                         return theOneRingMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return theOneRingMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("plane") && fourteenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.PlaneSound);
                     if (chance <= planeChance)
                     {
+                        itemSound.Play();
                         return planeMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return planeMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("power glove") && fifteenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.PowerGloveSound);
                     if (chance <= powerGloveChance)
                     {
+                        itemSound.Play();
                         return powerGloveMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return powerGloveMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("companion cube") && sixteenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.CompanionCubeSound);
                     if (chance <= companionCubeChance)
                     {
+                        itemSound.Play();
                         return companionCubeMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return companionCubeMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("pocket watch") && seventeenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.PocketWatchSound);
                     if (chance <= pocketWatchChance)
                     {
+                        itemSound.Play();
                         return pocketWatchMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return pocketWatchMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("plank") && eighteenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.PlankSound);
                     if (chance <= plankChance)
                     {
+                        itemSound.Play();
                         return plankMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return plankMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("cloth") && nineteenHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.ClothSound);
                     if (chance <= clothChance)
                     {
+                        itemSound.Play();
                         return clothMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return clothMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("chain") && twentyHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.ChainSound);
                     if (chance <= chainChance)
                     {
+                        itemSound.Play();
                         return chainMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return chainMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("hook") && twentyoneHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.HookSound);
                     if (chance <= hookChance)
                     {
+                        itemSound.Play();
                         return hookMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return hookMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("metallic handheld item") && twentytwoHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.GunSound);
                     if (chance <= metalicHandHeldItemChance)
                     {
+                        itemSound.Play();
                         return metalicHandHeldItemMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return metalicHandHeldItemMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("slingshot") && twentythreeHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.SlingshotSound);
                     if (chance <= slingshotChance)
                     {
+                        itemSound.Play();
                         return slingshotMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return slingshotMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("poison fang") && twentyfourHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.PoisonFangSound);
                     if (chance <= poisonFangChance)
                     {
+                        itemSound.Play();
                         return poisonFangMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return poisonFangMessageBad;
                     }
                 }
                 else if (inputText.ToLower().Contains("torch") && twentyfiveHave == true)
                 {
+                    itemSound = new System.Media.SoundPlayer(Properties.Resources.TorchSound);
                     if (chance <= torchChance)
                     {
+                        itemSound.Play();
                         return torchMessage;
                     }
                     else
                     {
+                        itemSound.Play();
                         return torchMessageBad;
                     }
                 }
@@ -650,7 +737,8 @@ namespace AdventureGame
             int traverseChanceI,
             String failedTraverseTextI,
             String openerI,
-            bool safeI
+            bool safeI,
+            Image displayI
             )
             {
                 evilRockMessage = evilRockMessageI;
@@ -744,6 +832,7 @@ namespace AdventureGame
                 eventDone = false;
                 safe = safeI;
                 opener = openerI;
+                display = displayI;
             }
         }
 
@@ -760,6 +849,15 @@ namespace AdventureGame
         public Form1()
         {
             InitializeComponent();
+
+            adventureTheme.Play();
+
+            medisiaBackdrop.Parent = medisiaBorder;
+            medisiaBackdrop.Location = new Point(0, 0);
+            medisiaBackdrop.BackgroundImage = Properties.Resources.ForestBackdrop;
+
+            medisiaImageView.Parent = medisiaBackdrop;
+            medisiaImageView.Location = new Point(0, 0);
 
             medisiaImageView.BackgroundImage = Properties.Resources.MedisiaBackdrop;
 
@@ -893,7 +991,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "", //failedTraverseTextI
               "You run across an abandoned cart \nYou feel like leaving something behind", //openerI
-              false //safeI
+              false, //safeI
+              Properties.Resources.Cart
               );
 
             //Scene 2, Broken Bridge
@@ -986,7 +1085,8 @@ namespace AdventureGame
               5, //traverseChanceI
               "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
               "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              false, //safeI
+              Properties.Resources.Bridge
               );
 
             //To be added at a later date, The following are copied events
@@ -995,31 +1095,31 @@ namespace AdventureGame
               "You reconsider your actions", //evilRockMessageI
               "You bash your head in \nYou die \nPlay Again?", //evilRockMessageBadI
               1, //evilRockChanceI
-              "That does nothing", //bucketMessageI
+              "That does nothing \nYou die \nPlay Again", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "The wolf yields \nYou are safe to move", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
-              "Your stick breaks", //stickMessageBadI
+              "You throw the stick and the wolf moves after it \nIt is safe to run", //stickMessageI
+              "Your stick breaks \nYou die \nPlay Again", //stickMessageBadI
               10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
+              "You swing at the wolf \nThe blood splatter indicates it is safe to move", //swordMessageI
               "",//swordMessageBadI
               100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "You swing at the wolf \nThe blood splatter indicates it is safe to move", //axeMessageI
               "", //axeMessageBadI
               100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "Your vision goes black \nThe wolf and the totem are gone \nIt's safe to move, I think?", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
-              "", //voodooDollMessageBadI
+              "The wolf runs away in fright \nThe doll looks at you in a frightening manner \nIt is safe to move", //voodooDollMessageI
+              "The wolf runs away in fright \nThe doll looks at you in a frightening manner \nYou die \nPlay Again?", //voodooDollMessageBadI
               100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "The broomstick flies away from you",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "What a lovely Bunch of coconuts! \nAnywho, you're ripped to shreds \nYou die \nPlay Again?", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1028,59 +1128,60 @@ namespace AdventureGame
               "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
               "",//pandorasBoxMessageBadI
               100, //pandorasBoxChanceI
-              "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
+              "The wolf takes the decapitated head \nYou can move safely", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "The wolf can no longer see you \nIt's safe to move",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
-              50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "You fly straight into the wolf \nThe wolf is dead but you die as well \nPlay Again?", //planeMessageI
+              "", //planeMessageBadI
+              100, //planeChanceI
+              "The wolf takes the glove", //powerGloveMessageI
               "The glove disappears and you look weird for trying", //powerGloveMessageBadI
               90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              "You offer up the companion cube and it takes it \nYou coward \nIt is safe to move", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You check the time \nSuddenly, the hands move backwards and the wolf is gone \nIt is safe to move, but the pocket watch smashes", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
               90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              "It only stuns the wolf, but just long enough \nIt is safe to move", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
+              "You try to muzle the wolf, but it fails \nYou die \nPlay Again?", //clothMessageI
               "", //clothMessageBadI
               100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
-              "Your hook ricochets and breaks", //hookMessageBadI
-              75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
-              80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
+              "You try to muzle the wolf, but it fails \nYou die \nPlay Again?", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You hook pulls on the vital organs of the wolf \nThis somehow works \nIt is safe to move", //hookMessageI
+              "Your hook pulls in the wolf \nYou die \nPlay Again?", //hookMessageBadI
+              25, //hookChanceI
+              "You shoot the Wolf \nIt's safe to move, there's no more threat", //metalicHandHeldItemMessageI
+              "", //metalicHandHeldItemMessageBadI
+              100, //metalicHandHeldItemChanceI
+              "You distract the wolf with the slingshot \nNow is the safe time to run", //slingshotMessageI
               "", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
+              "You stab the wolf \nIt cries a loud yipe before falling dead \nIt is safe to move", //poisonFangMessageI
               "", //poisonFangMessageBadI
               100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
+              "You set fire to the wolf and it scampers off \nYou are safe to move", //torchMessageI
+              "The light frightens the wolf and sends it into a frenzy \nYou die \nPlay Again?", //torchMessageBadI
               50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
-              "You do realize there's no one around?", //sayTextI
+              "You cannot get around it \nThis is a primal hunter", //examineTextI
+              "You get a stick off the ground", //obtainTextI
+              "Blood drips from the mouth of the beast", //lookTextI
+              "The Wolf doesn't speak elvish", //sayTextI
               "Unlock what?", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "",//traverseTextI
+              0, //traverseChanceI
+              "The wolf tears you to pieces \nYou die \nPlay Again?", //failedTraverseTextI
+              "A feral wolf blocks your path \nIt doesn't seem to be letting you by", //openerI
+              false, //safeI
+              Properties.Resources.Wolf
               );
 
             //Scene 4, Dragon
@@ -1088,31 +1189,31 @@ namespace AdventureGame
               "You reconsider your actions", //evilRockMessageI
               "You bash your head in \nYou die \nPlay Again?", //evilRockMessageBadI
               1, //evilRockChanceI
-              "That does nothing", //bucketMessageI
+              "That does nothing \nYou die \nPlay Again", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "The dragon looks onwards with greed \nYou are safe to move, but the holy bucket stays", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
-              "Your stick breaks", //stickMessageBadI
+              "That's not sufficient \nYou die \nPlay Again", //stickMessageI
+              "Your stick breaks \nYou die \nPlay Again", //stickMessageBadI
               10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
+              "You swing at the dragon \nThe blood splatter indicates it is safe to move", //swordMessageI
               "",//swordMessageBadI
               100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "You swing at the dragon \nThe blood splatter indicates it is safe to move", //axeMessageI
               "", //axeMessageBadI
               100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "Your vision goes black \nThe dragon and the totem are gone \nIt's safe, I think", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
-              "", //voodooDollMessageBadI
-              100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "The dragon flies away in fright \nThe doll looks at you in a frightening manner \nIt is safe to move", //voodooDollMessageI
+              "The dragon flies away in fright \nThe doll looks at you in a frightening manner \nYou die \nPlay Again?", //voodooDollMessageBadI
+              50, //voodooDollChanceI
+              "The broomstick flies away from you",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "What a lovely Bunch of coconuts! \nAnywho, you're ripped to shreds \nYou die \nPlay Again?", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1121,59 +1222,60 @@ namespace AdventureGame
               "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
               "",//pandorasBoxMessageBadI
               100, //pandorasBoxChanceI
-              "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
+              "The dragon takes the decapitated head \nYou can move safely", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "The dragon can no longer see you \nIt's enraged \nIt's safe to move",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
-              50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "You fly straight into the dragon \nThe dragon is dead but you die as well \nPlay Again?", //planeMessageI
+              "", //planeMessageBadI
+              100, //planeChanceI
+              "The dragon flambes the glove", //powerGloveMessageI
               "The glove disappears and you look weird for trying", //powerGloveMessageBadI
               90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              "You offer up the companion cube and it takes it \nYou coward \nIt is safe to move", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You check the time \nSuddenly, the hands move backwards and the dragon is gone \nIt is safe to move, but the pocket watch smashes", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
               90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              "The dragon burns the plank \nYou die \nPlay Again?", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
+              "The dragon burns the cloth \nYou die \nPlay Again?", //clothMessageI
               "", //clothMessageBadI
               100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
-              "Your hook ricochets and breaks", //hookMessageBadI
-              75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
-              80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
-              "", //slingshotMessageBadI
+              "You bind the dragon \nIt is safe to run", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You pull the dragon to the ground \nIt is safe to run", //hookMessageI
+              "It only angers the dragon \nYou die \nPlay Again?", //hookMessageBadI
+              25, //hookChanceI
+              "The shot goes through the eyes \nLucky \nIt's safe to leave", //metalicHandHeldItemMessageI
+              "It doesn't pierce the scales \nYou die \nPlay Again?", //metalicHandHeldItemMessageBadI
+              50, //metalicHandHeldItemChanceI
+              "", //slingshotMessageI
+              "The shot bounces off the dragon \nOops \nYou die \nPlay Again?", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
-              "", //poisonFangMessageBadI
-              100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
-              50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
-              "You do realize there's no one around?", //sayTextI
+              "", //poisonFangMessageI
+              "It doesn't pierce the scales \nYou die \nPlay Again?", //poisonFangMessageBadI
+              0, //poisonFangChanceI
+              "", //torchMessageI
+              "The fire angers the dragon \nYou die \nPlay Again?", //torchMessageBadI
+              0, //torchChanceI
+              "You cannot get around it \nThis is a HUGE DRAGON", //examineTextI
+              "You get a poison fang off the ground", //obtainTextI
+              "Flames plume from the mouth of the beast", //lookTextI
+              "There's no reasoning with a dragon", //sayTextI
               "Unlock what?", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "",//traverseTextI
+              0, //traverseChanceI
+              "The dragon tears you to pieces \nYou die \nPlay Again?", //failedTraverseTextI
+              "A dragon blocks your path \nIt doesn't seem to be letting you by", //openerI
+              false, //safeI
+              Properties.Resources.Dragon
               );
 
             //Scene 5, Black Knight
@@ -1184,28 +1286,28 @@ namespace AdventureGame
               "That does nothing", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "The knight does not yield \nHe is smited \nIt is safe to pass", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
+              "You better have another arm, as yours finds its way onto the floor \nYou die \nPlay Again", //stickMessageI
               "Your stick breaks", //stickMessageBadI
               10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
-              "",//swordMessageBadI
-              100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "You best the knight \nIt is safe to move", //swordMessageI
+              "The knight bests you \nYou die \nPlay Again",//swordMessageBadI
+              50,//swordChanceI
+              "It's not fast enough \nYou die \nPlay Again", //axeMessageI
               "", //axeMessageBadI
               100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "The knight seizes the totem \nYou die \nPlay Again", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
+              "The knight falls apart \nIt is safe to move", //voodooDollMessageI
               "", //voodooDollMessageBadI
               100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "You fly past the knight \nThe broom dissappears but it is safe to move",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "You toss the coconut \nThe knight is unconscious \nIt's safe to move", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1217,56 +1319,57 @@ namespace AdventureGame
               "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "You slip past the knight and lose the one ring \nHowever, it is safe to move",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
-              50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "A plane won't help you here", //planeMessageI
+              "", //planeMessageBadI
+              100, //planeChanceI
+              "The knight laughs \nIt's safe to slip by ", //powerGloveMessageI
               "The glove disappears and you look weird for trying", //powerGloveMessageBadI
-              90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              40, //powerGloveChanceI
+              "Companionship isn't the solution", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You check the time \nSuddenly, the hands move backwards and the knight collapses, all that remains is armour \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
               90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              "You knock the knight unconscious \nYour might has caused the plank to break \nIt is safe to move", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
-              "", //clothMessageBadI
-              100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
+              "You engage the knight in a slapping contest and win! \nGood Show! \nIt is safe to leave", //clothMessageI
+              "You engage the knight in a slapping contest and lose \nYou die \nPlay Again?", //clothMessageBadI
+              50, //clothChanceI
+              "You toss the chain \nYou die \nPlay Again?", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You hook in the knight for a deep kiss \nEnamoured, you find it safe to slip off into the daylight", //hookMessageI
               "Your hook ricochets and breaks", //hookMessageBadI
               75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
-              80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
+              "", //metalicHandHeldItemMessageI
+              "You shoot the knight \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
+              0, //metalicHandHeldItemChanceI
+              "You somehow launch yourself at the knight with the slingshot \nYou get implaed on his sword \nYou die \nPlay Again?", //slingshotMessageI
               "", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
+              "Dashing like a madman, you plunge the fang into the armour and make a slight dent \nYou die \nPlay Again?", //poisonFangMessageI
               "", //poisonFangMessageBadI
               100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
+              "You burn the knight on the inside of his armour \nHe runs off in pain \nIt is safe to move", //torchMessageI
+              "The knight extinguishes the torch", //torchMessageBadI
               50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
-              "You do realize there's no one around?", //sayTextI
+              "Nothing gets past him", //examineTextI
+              "You find a lone stick", //obtainTextI
+              "At what? \nThe knight is the only thing blocking your path", //lookTextI
+              "None shall pass... \nHe's not much of a talker", //sayTextI
               "Unlock what?", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "",//traverseTextI
+              0, //traverseChanceI
+              "The knight stabs you \nYou die \nPlay Again?", //failedTraverseTextI
+              "The black knight blocks your path \nNone shall pass", //openerI
+              false, //safeI
+              Properties.Resources.BlackKnight
               );
 
             //Scene 6, Deep Forest
@@ -1274,31 +1377,31 @@ namespace AdventureGame
               "You reconsider your actions", //evilRockMessageI
               "You bash your head in \nYou die \nPlay Again?", //evilRockMessageBadI
               1, //evilRockChanceI
-              "That does nothing", //bucketMessageI
+              "You place the bucket on the cart \nThis feels right", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "You place the bucket on the cart \nYou feel brought to tears", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
+              "You give up your stick", //stickMessageI
               "Your stick breaks", //stickMessageBadI
-              10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
+              50, //stickChanceI
+              "You lay down your arms", //swordMessageI
               "",//swordMessageBadI
               100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
-              "", //axeMessageBadI
-              100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "You hand down your axe", //axeMessageI
+              "You smash the cart", //axeMessageBadI
+              50, //axeChanceI
+              "You curse the cart", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
+              "The doll floats to the cart \nYou feel relieved", //voodooDollMessageI
               "", //voodooDollMessageBadI
               100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "It rejects the cart",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "You hear distant horse steps... \nClopping? \nWho knows, but your coconut is carried off... \nBy two swallows?", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1307,59 +1410,61 @@ namespace AdventureGame
               "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
               "",//pandorasBoxMessageBadI
               100, //pandorasBoxChanceI
-              "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
+              "You lay the head on the cart \nThe owner would be terrified", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "The whispers tell you not to",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
+              "The plane flies off with the cart in tow", //planeMessageI
+              "The plane crushes the cart \nHow did you carry that!?", //planeMessageBadI
               50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
-              "The glove disappears and you look weird for trying", //powerGloveMessageBadI
-              90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              "The cart glitches out of existence and so does the glove \nWhy?", //powerGloveMessageI
+              "", //powerGloveMessageBadI
+              100, //powerGloveChanceI
+              "You leave it on the cart \nYou feel empty inside without your companion cube", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You leave your pocket watch for the owner \nYou feel happy", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
-              90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              50, //pocketWatchChanceI
+              "You replace an old plank with your plank \n You feel good", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
+              "You wipe down the cart with the cloth \nIt falls apart", //clothMessageI
               "", //clothMessageBadI
               100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
-              "Your hook ricochets and breaks", //hookMessageBadI
-              75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
+              "You place the chain on the cart", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You place the hook on the cart", //hookMessageI
+              "You hook the cart", //hookMessageBadI
+              50, //hookChanceI
+              "You place the metallic handheld item on the cart", //metalicHandHeldItemMessageI
+              "The gun... I MEAN metallic handheld item fires \nIt ricochets and hits you \nYou are dead \nPlay Again", //metalicHandHeldItemMessageBadI
               80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
+              "Your prankster days are behind you... \nNOT! You keep your it on your person", //slingshotMessageI
               "", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
+              "That's... Not Right", //poisonFangMessageI
               "", //poisonFangMessageBadI
               100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
+              "You place the torch on the cart \nRisky", //torchMessageI
+              "You light the cart on fire with the torch \nThe torch burns up", //torchMessageBadI
               50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
+              "It looks to be a cart \nPerhaps it once belonged to a merchant", //examineTextI
+              "You cannot take the cart", //obtainTextI
+              "You see a clear path around the cart \nMaybe you don't need to be giving", //lookTextI
               "You do realize there's no one around?", //sayTextI
-              "Unlock what?", //unlockTextI
+              "You unlock a secret compartment in the cart \nYou find a strange box \nPandoras Box obtained", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "You walk past the cart \nPerhaps you deserve what happened to you",//traverseTextI
+              100, //traverseChanceI
+              "", //failedTraverseTextI
+              "You run across an abandoned cart \nYou feel like leaving something behind", //openerI
+              false, //safeI
+              Properties.Resources.Cart
+              //Properties.Resources.DeepForest
               );
 
             //Scene 7, Wizard
@@ -1452,7 +1557,9 @@ namespace AdventureGame
               5, //traverseChanceI
               "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
               "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              false, //safeI
+              Properties.Resources.Bridge
+              //Properties.Resources.Wizard
               );
 
             //Scene 8, Village
@@ -1460,31 +1567,31 @@ namespace AdventureGame
               "You reconsider your actions", //evilRockMessageI
               "You bash your head in \nYou die \nPlay Again?", //evilRockMessageBadI
               1, //evilRockChanceI
-              "That does nothing", //bucketMessageI
+              "That does nothing \nYou die \nPlay Again", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "The wolf yields \nYou are safe to move", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
-              "Your stick breaks", //stickMessageBadI
+              "You throw the stick and the wolf moves after it \nIt is safe to run", //stickMessageI
+              "Your stick breaks \nYou die \nPlay Again", //stickMessageBadI
               10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
+              "You swing at the wolf \nThe blood splatter indicates it is safe to move", //swordMessageI
               "",//swordMessageBadI
               100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "You swing at the wolf \nThe blood splatter indicates it is safe to move", //axeMessageI
               "", //axeMessageBadI
               100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "Your vision goes black \nThe wolf and the totem are gone \nIt's safe to move, I think?", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
-              "", //voodooDollMessageBadI
+              "The wolf runs away in fright \nThe doll looks at you in a frightening manner \nIt is safe to move", //voodooDollMessageI
+              "The wolf runs away in fright \nThe doll looks at you in a frightening manner \nYou die \nPlay Again?", //voodooDollMessageBadI
               100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "The broomstick flies away from you",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "What a lovely Bunch of coconuts! \nAnywho, you're ripped to shreds \nYou die \nPlay Again?", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1493,59 +1600,61 @@ namespace AdventureGame
               "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
               "",//pandorasBoxMessageBadI
               100, //pandorasBoxChanceI
-              "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
+              "The wolf takes the decapitated head \nYou can move safely", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "The wolf can no longer see you \nIt's safe to move",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
-              50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "You fly straight into the wolf \nThe wolf is dead but you die as well \nPlay Again?", //planeMessageI
+              "", //planeMessageBadI
+              100, //planeChanceI
+              "The wolf takes the glove", //powerGloveMessageI
               "The glove disappears and you look weird for trying", //powerGloveMessageBadI
               90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              "You offer up the companion cube and it takes it \nYou coward \nIt is safe to move", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You check the time \nSuddenly, the hands move backwards and the wolf is gone \nIt is safe to move, but the pocket watch smashes", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
               90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              "It only stuns the wolf, but just long enough \nIt is safe to move", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
+              "You try to muzle the wolf, but it fails \nYou die \nPlay Again?", //clothMessageI
               "", //clothMessageBadI
               100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
-              "Your hook ricochets and breaks", //hookMessageBadI
-              75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
-              80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
+              "You try to muzle the wolf, but it fails \nYou die \nPlay Again?", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You hook pulls on the vital organs of the wolf \nThis somehow works \nIt is safe to move", //hookMessageI
+              "Your hook pulls in the wolf \nYou die \nPlay Again?", //hookMessageBadI
+              25, //hookChanceI
+              "You shoot the Wolf \nIt's safe to move, there's no more threat", //metalicHandHeldItemMessageI
+              "", //metalicHandHeldItemMessageBadI
+              100, //metalicHandHeldItemChanceI
+              "You distract the wolf with the slingshot \nNow is the safe time to run", //slingshotMessageI
               "", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
+              "You stab the wolf \nIt cries a loud yipe before falling dead \nIt is safe to move", //poisonFangMessageI
               "", //poisonFangMessageBadI
               100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
+              "You set fire to the wolf and it scampers off \nYou are safe to move", //torchMessageI
+              "The light frightens the wolf and sends it into a frenzy \nYou die \nPlay Again?", //torchMessageBadI
               50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
-              "You do realize there's no one around?", //sayTextI
+              "You cannot get around it \nThis is a primal hunter", //examineTextI
+              "You get a stick off the ground", //obtainTextI
+              "Blood drips from the mouth of the beast", //lookTextI
+              "The Wolf doesn't speak elvish", //sayTextI
               "Unlock what?", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "",//traverseTextI
+              0, //traverseChanceI
+              "The wolf tears you to pieces \nYou die \nPlay Again?", //failedTraverseTextI
+              "A feral wolf blocks your path \nIt doesn't seem to be letting you by", //openerI
+              false, //safeI
+              Properties.Resources.Wolf
+              //Properties.Resources.Village
               );
 
             //Scene 9, Mines
@@ -1553,31 +1662,31 @@ namespace AdventureGame
               "You reconsider your actions", //evilRockMessageI
               "You bash your head in \nYou die \nPlay Again?", //evilRockMessageBadI
               1, //evilRockChanceI
-              "That does nothing", //bucketMessageI
+              "That does nothing \nYou die \nPlay Again", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "The dragon looks onwards with greed \nYou are safe to move, but the holy bucket stays", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
-              "Your stick breaks", //stickMessageBadI
+              "That's not sufficient \nYou die \nPlay Again", //stickMessageI
+              "Your stick breaks \nYou die \nPlay Again", //stickMessageBadI
               10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
+              "You swing at the dragon \nThe blood splatter indicates it is safe to move", //swordMessageI
               "",//swordMessageBadI
               100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "You swing at the dragon \nThe blood splatter indicates it is safe to move", //axeMessageI
               "", //axeMessageBadI
               100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "Your vision goes black \nThe dragon and the totem are gone \nIt's safe, I think", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
-              "", //voodooDollMessageBadI
-              100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "The dragon flies away in fright \nThe doll looks at you in a frightening manner \nIt is safe to move", //voodooDollMessageI
+              "The dragon flies away in fright \nThe doll looks at you in a frightening manner \nYou die \nPlay Again?", //voodooDollMessageBadI
+              50, //voodooDollChanceI
+              "The broomstick flies away from you",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "What a lovely Bunch of coconuts! \nAnywho, you're ripped to shreds \nYou die \nPlay Again?", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1586,59 +1695,61 @@ namespace AdventureGame
               "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
               "",//pandorasBoxMessageBadI
               100, //pandorasBoxChanceI
-              "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
+              "The dragon takes the decapitated head \nYou can move safely", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "The dragon can no longer see you \nIt's enraged \nIt's safe to move",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
-              50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "You fly straight into the dragon \nThe dragon is dead but you die as well \nPlay Again?", //planeMessageI
+              "", //planeMessageBadI
+              100, //planeChanceI
+              "The dragon flambes the glove", //powerGloveMessageI
               "The glove disappears and you look weird for trying", //powerGloveMessageBadI
               90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              "You offer up the companion cube and it takes it \nYou coward \nIt is safe to move", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You check the time \nSuddenly, the hands move backwards and the dragon is gone \nIt is safe to move, but the pocket watch smashes", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
               90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              "The dragon burns the plank \nYou die \nPlay Again?", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
+              "The dragon burns the cloth \nYou die \nPlay Again?", //clothMessageI
               "", //clothMessageBadI
               100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
-              "Your hook ricochets and breaks", //hookMessageBadI
-              75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
-              80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
-              "", //slingshotMessageBadI
+              "You bind the dragon \nIt is safe to run", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You pull the dragon to the ground \nIt is safe to run", //hookMessageI
+              "It only angers the dragon \nYou die \nPlay Again?", //hookMessageBadI
+              25, //hookChanceI
+              "The shot goes through the eyes \nLucky \nIt's safe to leave", //metalicHandHeldItemMessageI
+              "It doesn't pierce the scales \nYou die \nPlay Again?", //metalicHandHeldItemMessageBadI
+              50, //metalicHandHeldItemChanceI
+              "", //slingshotMessageI
+              "The shot bounces off the dragon \nOops \nYou die \nPlay Again?", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
-              "", //poisonFangMessageBadI
-              100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
-              50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
-              "You do realize there's no one around?", //sayTextI
+              "", //poisonFangMessageI
+              "It doesn't pierce the scales \nYou die \nPlay Again?", //poisonFangMessageBadI
+              0, //poisonFangChanceI
+              "", //torchMessageI
+              "The fire angers the dragon \nYou die \nPlay Again?", //torchMessageBadI
+              0, //torchChanceI
+              "You cannot get around it \nThis is a HUGE DRAGON", //examineTextI
+              "You get a poison fang off the ground", //obtainTextI
+              "Flames plume from the mouth of the beast", //lookTextI
+              "There's no reasoning with a dragon", //sayTextI
               "Unlock what?", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "",//traverseTextI
+              0, //traverseChanceI
+              "The dragon tears you to pieces \nYou die \nPlay Again?", //failedTraverseTextI
+              "A dragon blocks your path \nIt doesn't seem to be letting you by", //openerI
+              false, //safeI
+              Properties.Resources.Dragon
+              //Properties.Resources.Mines
               );
 
             //Scene 10, Mountains
@@ -1649,28 +1760,28 @@ namespace AdventureGame
               "That does nothing", //bucketMessageI
               "", //bucketMessageBadI
               100, //bucketChanceI
-              "You drain the river \n it is now safe to cross", //holyBucketMessageI
+              "The knight does not yield \nHe is smited \nIt is safe to pass", //holyBucketMessageI
               "", //holyBucketMessageBadI
               100, //holyBucketChanceI
-              "You patch the bridge with your stick \nIt is now safe to cross", //stickMessageI
+              "You better have another arm, as yours finds its way onto the floor \nYou die \nPlay Again", //stickMessageI
               "Your stick breaks", //stickMessageBadI
               10, //stickChanceI
-              "A sword won't help you here", //swordMessageI
-              "",//swordMessageBadI
-              100,//swordChanceI
-              "You cut down wood to fix the bridge \nThe axe breaks but it is now safe to cross", //axeMessageI
+              "You best the knight \nIt is safe to move", //swordMessageI
+              "The knight bests you \nYou die \nPlay Again",//swordMessageBadI
+              50,//swordChanceI
+              "It's not fast enough \nYou die \nPlay Again", //axeMessageI
               "", //axeMessageBadI
               100, //axeChanceI
-              "Your vision goes black \nThe bridge is fixed and it is now safe to cross", //totemMessageI
+              "The knight seizes the totem \nYou die \nPlay Again", //totemMessageI
               "", //totemMessageBadI
               100, //totemChanceI
-              "Nothing Happens", //voodooDollMessageI
+              "The knight falls apart \nIt is safe to move", //voodooDollMessageI
               "", //voodooDollMessageBadI
               100, //voodooDollChanceI
-              "You fly over the bridge but lose control \nYou crash into a nearby tree \nYou are safe but the broom is broken",//broomstickMessageI
+              "You fly past the knight \nThe broom dissappears but it is safe to move",//broomstickMessageI
               "", //broomstickMessageBadI
               100, //broomstickChanceI
-              "You hear distant horse steps... \nClopping? \nWho knows, but you and your coconut are carried off... \nBy two swallows? \nYou are safely across the bridge", //coconutMessageI
+              "You toss the coconut \nThe knight is unconscious \nIt's safe to move", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
               "That's stuck to your head", //crownOfThornesMessageI
@@ -1682,56 +1793,58 @@ namespace AdventureGame
               "What? \nWhat exactly is your plan?", //decapitatedHeadMessageI
               "", //decapitatedHeadMessageBadI
               100, //decapitatedHeadChanceI
-              "A grey creature snags the ring \nYou grab hold but the creature escapes \nYou are safely across the bridge",//theOneRingMessageI
+              "You slip past the knight and lose the one ring \nHowever, it is safe to move",//theOneRingMessageI
               "", //theOneRingMessageBadI
               100, //theOneRingChanceI
-              "You fly across the bridge in your plane \nYou land safely but the plane is out of gas \nYou are safely across the bridge", //planeMessageI
-              "You try to fly across the bridge, but realize you cannot fly a plane \nYou crash and burn \nPlay again?", //planeMessageBadI
-              50, //planeChanceI
-              "The bridges glitches but is completely fixed \nThe glove disappears but you are safe across the bridge", //powerGloveMessageI
+              "A plane won't help you here", //planeMessageI
+              "", //planeMessageBadI
+              100, //planeChanceI
+              "The knight laughs \nIt's safe to slip by ", //powerGloveMessageI
               "The glove disappears and you look weird for trying", //powerGloveMessageBadI
-              90, //powerGloveChanceI
-              "You try to fix the bridge with your companion cube \nIt sinks into the river", //companionCubeMessageI
+              40, //powerGloveChanceI
+              "Companionship isn't the solution", //companionCubeMessageI
               "", //companionCubeMessageBadI
               100, //companionCubeChanceI
-              "You check the time \nSuddenly, the hands move backwards and the bridge is fixed \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
+              "You check the time \nSuddenly, the hands move backwards and the knight collapses, all that remains is armour \nIt is safe to cross, but the pocket watch smashes", //pocketWatchMessageI
               "You drop the pocket watch and it shatters", //pocketWatchMessageBadI
               90, //pocketWatchChanceI
-              "You fix the bridge with your plank \n It is safe to cross", //plankMessageI
+              "You knock the knight unconscious \nYour might has caused the plank to break \nIt is safe to move", //plankMessageI
               "", //plankMessageBadI
               100, //plankChanceI
-              "You make a make-shift paraglider and sail across \nYou are safe on the other side", //clothMessageI
-              "", //clothMessageBadI
-              100, //clothChanceI
-              "You use the chain to hold the bridge together \nYou are safe, but the chain breaks", //chainMessageI
-              "The chain snaps under the pressure and you tumble into the river \nPlay Again? ", //chainMessageBadI
-              70, //chainChanceI
-              "You hook across the bridge gap \nYou are safely across", //hookMessageI
+              "You engage the knight in a slapping contest and win! \nGood Show! \nIt is safe to leave", //clothMessageI
+              "You engage the knight in a slapping contest and lose \nYou die \nPlay Again?", //clothMessageBadI
+              50, //clothChanceI
+              "You toss the chain \nYou die \nPlay Again?", //chainMessageI
+              "", //chainMessageBadI
+              100, //chainChanceI
+              "You hook in the knight for a deep kiss \nEnamoured, you find it safe to slip off into the daylight", //hookMessageI
               "Your hook ricochets and breaks", //hookMessageBadI
               75, //hookChanceI
-              "You shoot the bridge \nWhy?", //metalicHandHeldItemMessageI
-              "You shoot the bridge \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
-              80, //metalicHandHeldItemChanceI
-              "You somehow launch yourself across with the slingshot \nIt defies all logic, but you're safe", //slingshotMessageI
+              "", //metalicHandHeldItemMessageI
+              "You shoot the knight \nIt ricochets and hits you \nYou die \nPlay Again? ", //metalicHandHeldItemMessageBadI
+              0, //metalicHandHeldItemChanceI
+              "You somehow launch yourself at the knight with the slingshot \nYou get implaed on his sword \nYou die \nPlay Again?", //slingshotMessageI
               "", //slingshotMessageBadI
               100, //slingshotChanceI
-              "That's... Not going to work", //poisonFangMessageI
+              "Dashing like a madman, you plunge the fang into the armour and make a slight dent \nYou die \nPlay Again?", //poisonFangMessageI
               "", //poisonFangMessageBadI
               100, //poisonFangChanceI
-              "You know what they say about burning bridges \nInstead you use it to fix the bridge \nYou are safely across", //torchMessageI
-              "You light the bridge on fire with the torch \nThe torch burns up", //torchMessageBadI
+              "You burn the knight on the inside of his armour \nHe runs off in pain \nIt is safe to move", //torchMessageI
+              "The knight extinguishes the torch", //torchMessageBadI
               50, //torchChanceI
-              "It's beat down, but maybe you can still cross \nDefinitely a last choice option though, it looks incredibly dangerous", //examineTextI
-              "There's absolutely nothing salvagable", //obtainTextI
-              "The river extends far past your vision", //lookTextI
-              "You do realize there's no one around?", //sayTextI
+              "Nothing gets past him", //examineTextI
+              "You find a lone stick", //obtainTextI
+              "At what? \nThe knight is the only thing blocking your path", //lookTextI
+              "None shall pass... \nHe's not much of a talker", //sayTextI
               "Unlock what?", //unlockTextI
               "", //expectedUnlockItemI
-              "You attempt to cross the broken bridge and succeed \nYou are safe! What Luck!",//traverseTextI
-              5, //traverseChanceI
-              "You fall in the river and drown \nPlay Again?", //failedTraverseTextI
-              "A broken bridge blocks your path over a long river", //openerI
-              false //safeI
+              "",//traverseTextI
+              0, //traverseChanceI
+              "The knight stabs you \nYou die \nPlay Again?", //failedTraverseTextI
+              "The black knight blocks your path \nNone shall pass", //openerI
+              false, //safeI
+              Properties.Resources.BlackKnight
+              //Properties.Resources.Mountains
               );
 
             //Ending Scene
@@ -1766,7 +1879,7 @@ namespace AdventureGame
               "Debate breaks out about how the coconut even got to this land \nThey seem to have forgot your lock \nYou slip out and live in secret until a wooden rabbit enters the kingdom \nSoldiers jump out and ambush the whole kingdom \nYou die \nPlay Again?", //coconutMessageI
               "", //coconutMessageBadI
               100, //coconutChanceI
-              "That's stuck to your head", //crownOfThornesMessageI
+              "Well, you're dead... but don't let this get you down \nSome things in life are bad, \nThey can really make you mad, \nOther things just wanna make you swear and curse, \nWhen you're chewing on life's gristle, \nDon't grumble, give a whistle, \nAnd this'll help things turn out for the best, \nAnd..... \nPlay Again?", //crownOfThornesMessageI
               "", //crownOfThornesMessageBadI
               100, //crownOfThornesChanceI
               "NOOOOOOOOOOOOOOOO! \n Play Again?", //pandorasBoxMessageI
@@ -1824,7 +1937,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "You wasted your opportunity \nThere goes your head \nPlay Again?", //failedTraverseTextI
               "You wasted your opportunity \nThere goes your head \nPlay Again?", //openerI
-              false //safeI
+              false, //safeI
+              Properties.Resources.Guillotine
               );
 
             //Item Scenes
@@ -1917,7 +2031,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You come across a rock covered in a red liquid \nYou feel uneased \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.EvilRock
               );
 
             scenesItem[1].sceneCreate(
@@ -2009,7 +2124,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You come across a well with an intact bucket \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Bucket
               );
 
             scenesItem[2].sceneCreate(
@@ -2101,7 +2217,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "The light shines upon a bucket filled with what can only be described as liquid light \nYou feel... Inspired by the holy bucket \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.HolyBucket
               );
 
             scenesItem[3].sceneCreate(
@@ -2193,7 +2310,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A lone stick lies on the ground \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Stick
               );
 
             scenesItem[4].sceneCreate(
@@ -2285,7 +2403,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You come across a sword lodged in a stone \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Sword
               );
 
             scenesItem[5].sceneCreate(
@@ -2377,7 +2496,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "An axe lies at the side of a tree \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Axe
               );
 
             scenesItem[6].sceneCreate(
@@ -2469,7 +2589,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A wooden carving on a stained altar \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Totem
               );
 
             scenesItem[7].sceneCreate(
@@ -2561,7 +2682,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A poorly made doll lies against a wall \nClearly it's been tossed \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.VoodooDoll
               );
 
             scenesItem[8].sceneCreate(
@@ -2653,7 +2775,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A broom sits in a bike rack \nCurious \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Broom
               );
 
             scenesItem[9].sceneCreate(
@@ -2745,7 +2868,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You come across an exotic coconut \nHow on this planet did it get here? \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Coconut
               );
 
             scenesItem[10].sceneCreate(
@@ -2837,7 +2961,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You come across a bramble head dressing \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.CrownOfThornes
               );
 
             scenesItem[11].sceneCreate(
@@ -2929,7 +3054,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You come across a box that seems to echo darkness and chaos \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.PandorasBox
               );
 
             scenesItem[12].sceneCreate(
@@ -3021,7 +3147,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A severed head lies on the ground \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Head
               );
 
             scenesItem[13].sceneCreate(
@@ -3113,7 +3240,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A ring with unique engravings lies at the side of a stream \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.OneRing
               );
 
             scenesItem[14].sceneCreate(
@@ -3205,7 +3333,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A deserted plane lies in a clearing \nProbably no point in trying to take it \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Plane
               );
 
             scenesItem[15].sceneCreate(
@@ -3297,7 +3426,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A glove with buttons sits in a trash can \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.PowerGlove
               );
 
             scenesItem[16].sceneCreate(
@@ -3389,7 +3519,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A lightly burned cube with a heart lies outside a collapsed doorway \nYou feel happy \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.CompanionCube
               );
 
             scenesItem[17].sceneCreate(
@@ -3481,7 +3612,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You hear a ticking \nSearching the grass, you uncover an old watch \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.PocketWatch
               );
 
             scenesItem[18].sceneCreate(
@@ -3573,7 +3705,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A clearly removed plank lies on the ground \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Plank
               );
 
             scenesItem[19].sceneCreate(
@@ -3665,7 +3798,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A cloth hangs from the trees \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Cloth
               );
 
             scenesItem[20].sceneCreate(
@@ -3757,7 +3891,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "You trip and fall over a ball and chain \nThe chain rips off but the ball is immoveable  \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Chain
               );
 
             scenesItem[21].sceneCreate(
@@ -3849,7 +3984,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A burned down fishing shack sits beside a small lake \nAfter scavenging, all you find is a small hook \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Hook
               );
 
             scenesItem[22].sceneCreate(
@@ -3941,7 +4077,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A small case contains a shiny item \nIt feels good in your hand, but dangerous \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Gun
               );
 
             scenesItem[23].sceneCreate(
@@ -4033,7 +4170,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "A pair of shorts hangs from a pole \nThey're clearly child size, but a slingshot sits in the pocket \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.Slingshot
               );
 
             scenesItem[24].sceneCreate(
@@ -4125,7 +4263,8 @@ namespace AdventureGame
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
               "The corpse of a skinned viper is played across a tree \nOnly the fang remains \nPick it up or go?", //openerI
-              true //safeI
+              true, //safeI
+              Properties.Resources.PoisonFang
               );
 
             scenesItem[25].sceneCreate(
@@ -4216,8 +4355,9 @@ namespace AdventureGame
               "That has no effect",//traverseTextI
               100, //traverseChanceI
               "That has no effect", //failedTraverseTextI
-              "A wall has a spot for two torches \nA sign reasds one if by land, two if by sea \nOnly one remains \nPick it up or go?", //openerI
-              true //safeI
+              "A wall has a spot for two torches \nA sign reads one if by land, two if by sea \nOnly one remains \nPick it up or go?", //openerI
+              true, //safeI
+              Properties.Resources.Torch
               );
 
             textOutput.BackColor = Color.FromArgb(200, textOutput.BackColor);
@@ -4256,6 +4396,7 @@ namespace AdventureGame
                         int firstPage = rnd.Next(0, 9);
                         pagesScrolled++;
                         textOutput.Text = scenesReg[firstPage].opener;
+                        medisiaImageView.BackgroundImage = scenesReg[firstPage].display;
                         scenesReg[firstPage].used = true;
                         currentPage = $"scenesReg[{firstPage}]";
                     }
@@ -4285,6 +4426,9 @@ namespace AdventureGame
                             {
                                 String response = scenesReg[sceneReading].itemCheck(inputText, chance, items[0].have, items[1].have, items[2].have, items[3].have, items[4].have, items[5].have, items[6].have, items[7].have, items[8].have, items[9].have, items[10].have, items[11].have, items[12].have, items[13].have, items[14].have, items[15].have, items[16].have, items[17].have, items[18].have, items[19].have, items[20].have, items[21].have, items[22].have, items[23].have, items[24].have, items[25].have);
 
+                                adventureTheme.Stop();
+                                themeOperator.Start();
+
                                 for (int i = 0; i <= 25; i++)
                                 {
                                     if (response.ToLower().Contains(items[i].itemName))
@@ -4311,6 +4455,9 @@ namespace AdventureGame
                                 if (response.ToLower().Contains("die") || response.ToLower().Contains("again"))
                                 {
                                     playAgain = true;
+                                    adventureTheme.Stop();
+                                    System.Media.SoundPlayer trombone = new SoundPlayer(Properties.Resources.TromboneSound);
+                                    trombone.Play();
                                 }
                             }
 
@@ -4341,6 +4488,9 @@ namespace AdventureGame
                                 if (response.ToLower().Contains("die") || response.ToLower().Contains("again"))
                                 {
                                     playAgain = true;
+                                    adventureTheme.Stop();
+                                    System.Media.SoundPlayer trombone = new SoundPlayer(Properties.Resources.TromboneSound);
+                                    trombone.Play();
                                 }
                             }
 
@@ -4348,6 +4498,10 @@ namespace AdventureGame
                             else if (inputText.ToLower().Contains("go") || inputText.ToLower().Contains("move"))
                             {
                                 String moveResult = scenesReg[sceneReading].moveCheck(inputText, chance, pagesScrolled, specialEventChance);
+
+                                adventureTheme.Stop();
+                                themeOperator.Start();
+                                System.Media.SoundPlayer footsteps = new SoundPlayer(Properties.Resources.FootstepsSound);
 
                                 bool nextPageReceived = false;
 
@@ -4379,6 +4533,7 @@ namespace AdventureGame
                                     }
 
                                     textOutput.Text = scenesItem[sceneReading].opener;
+                                    medisiaImageView.BackgroundImage = scenesItem[sceneReading].display;
 
                                     pagesScrolled++;
                                     scenesItem[sceneReading].used = true;
@@ -4406,10 +4561,12 @@ namespace AdventureGame
                                     }
 
                                     textOutput.Text = scenesReg[sceneReading].opener;
+                                    medisiaImageView.BackgroundImage = scenesReg[sceneReading].display;
 
                                     pagesScrolled++;
                                     scenesReg[sceneReading].used = true;
                                 }
+                                footsteps.Play();
                             }
 
                             else if (inputText.ToLower().Contains("dance") || inputText.ToLower().Contains("suicide") || inputText.ToLower().Contains("up up down down left right left right b a start"))
@@ -4452,6 +4609,9 @@ namespace AdventureGame
                             //Check for use
                             if (inputText.ToLower().Contains("use"))
                             {
+                                adventureTheme.Stop();
+                                themeOperator.Start();
+
                                 String response = scenesItem[sceneReading].itemCheck(inputText, chance, items[0].have, items[1].have, items[2].have, items[3].have, items[4].have, items[5].have, items[6].have, items[7].have, items[8].have, items[9].have, items[10].have, items[11].have, items[12].have, items[13].have, items[14].have, items[15].have, items[16].have, items[17].have, items[18].have, items[19].have, items[20].have, items[21].have, items[22].have, items[23].have, items[24].have, items[25].have);
 
                                 for (int i = 0; i <= 25; i++)
@@ -4480,6 +4640,9 @@ namespace AdventureGame
                                 if (response.ToLower().Contains("die") || response.ToLower().Contains("again"))
                                 {
                                     playAgain = true;
+                                    adventureTheme.Stop();
+                                    System.Media.SoundPlayer trombone = new SoundPlayer(Properties.Resources.TromboneSound);
+                                    trombone.Play();
                                 }
                             }
 
@@ -4510,6 +4673,9 @@ namespace AdventureGame
                                 if (response.ToLower().Contains("die") || response.ToLower().Contains("again"))
                                 {
                                     playAgain = true;
+                                    adventureTheme.Stop();
+                                    System.Media.SoundPlayer trombone = new SoundPlayer(Properties.Resources.TromboneSound);
+                                    trombone.Play();
                                 }
                             }
 
@@ -4517,6 +4683,10 @@ namespace AdventureGame
                             else if (inputText.ToLower().Contains("go") || inputText.ToLower().Contains("move"))
                             {
                                 String moveResult = scenesItem[sceneReading].moveCheck(inputText, chance, pagesScrolled, specialEventChance);
+
+                                adventureTheme.Stop();
+                                themeOperator.Start();
+                                System.Media.SoundPlayer footsteps = new SoundPlayer(Properties.Resources.FootstepsSound);
 
                                 bool nextPageReceived = false;
 
@@ -4548,6 +4718,7 @@ namespace AdventureGame
                                     }
 
                                     textOutput.Text = scenesItem[sceneReading].opener;
+                                    medisiaImageView.BackgroundImage = scenesItem[sceneReading].display;
 
                                     pagesScrolled++;
                                     scenesItem[sceneReading].used = true;
@@ -4575,10 +4746,12 @@ namespace AdventureGame
                                     }
 
                                     textOutput.Text = scenesReg[sceneReading].opener;
+                                    medisiaImageView.BackgroundImage = scenesReg[sceneReading].display;
 
                                     pagesScrolled++;
                                     scenesReg[sceneReading].used = true;
                                 }
+                                footsteps.Play();
                             }
 
                             else if (inputText.ToLower().Contains("dance") || inputText.ToLower().Contains("suicide") || inputText.ToLower().Contains("up up down down left right left right b a start"))
@@ -4596,6 +4769,9 @@ namespace AdventureGame
                                 if (response.ToLower().Contains("again"))
                                 {
                                     playAgain = true;
+                                    adventureTheme.Stop();
+                                    System.Media.SoundPlayer trombone = new SoundPlayer(Properties.Resources.TromboneSound);
+                                    trombone.Play();
                                 }
 
                                 textOutput.Text += response;
@@ -4639,6 +4815,9 @@ namespace AdventureGame
                             if (response.ToLower().Contains("die") || response.ToLower().Contains("again"))
                             {
                                 playAgain = true;
+                                adventureTheme.Stop();
+                                System.Media.SoundPlayer trombone = new SoundPlayer(Properties.Resources.TromboneSound);
+                                trombone.Play();
                             }
                         }
                         else
@@ -4655,6 +4834,12 @@ namespace AdventureGame
                     }
                 }
             }
+        }
+
+        private void themeOperator_Tick(object sender, EventArgs e)
+        {
+            adventureTheme.Play();
+            themeOperator.Stop();
         }
     }
 }
